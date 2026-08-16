@@ -85,9 +85,6 @@ export default function Home() {
           {activeTab === "Tableau de bord" && (
             <button onClick={() => setActiveTab("Numérisation")} className="bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-700">+ Nouveau Lot</button>
           )}
-          {activeTab === "Dossiers" && (
-            <button onClick={handleSimulateScan} className="bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-700">+ Nouveau Dossier</button>
-          )}
         </header>
 
         <div className="p-6">
@@ -100,7 +97,6 @@ export default function Home() {
                 <div className="bg-white p-4 rounded border shadow-sm"><h3 className="text-xs text-gray-500 uppercase font-medium">Archivés</h3><p className="text-2xl font-bold mt-1 text-green-600">{documents.filter(d => d.status === "Archivé").length}</p></div>
                 <div className="bg-white p-4 rounded border shadow-sm"><h3 className="text-xs text-gray-500 uppercase font-medium">Erreurs</h3><p className="text-2xl font-bold mt-1 text-red-600">0</p></div>
               </div>
-
               <div className="bg-white rounded border shadow-sm">
                 <div className="p-4 border-b font-semibold text-slate-700 text-sm">Derniers documents numérisés</div>
                 <table className="w-full text-sm">
@@ -122,7 +118,6 @@ export default function Home() {
           {activeTab === "Dossiers" && (
             <div className="bg-white p-6 rounded border shadow-sm">
               <h2 className="text-lg font-bold mb-4">Gestion des Dossiers (ISO 15489)</h2>
-              <p className="text-sm text-gray-600 mb-4">Cliquez sur un dossier pour voir les détails et le valider.</p>
               <div className="grid grid-cols-2 gap-4">
                 {documents.map(doc => (
                   <div key={doc.id} onClick={() => setSelectedDoc(doc)} className="p-4 border rounded hover:shadow-md cursor-pointer transition-all">
@@ -202,7 +197,6 @@ export default function Home() {
                 <thead><tr className="bg-gray-50 text-gray-500 text-left"><th className="p-3 font-medium">Rayonnage</th><th className="p-3 font-medium">Boîte</th><th className="p-3 font-medium">Dossier Lié</th><th className="p-3 font-medium">Statut</th></tr></thead>
                 <tbody>
                   <tr className="border-b"><td className="p-3">A1</td><td className="p-3">B12</td><td className="p-3 text-blue-600">{documents[0]?.ref || "N/A"}</td><td className="p-3"><span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">En attente</span></td></tr>
-                  <tr className="border-b"><td className="p-3">B4</td><td className="p-3">C03</td><td className="p-3 text-blue-600">{documents[1]?.ref || "N/A"}</td><td className="p-3"><span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Archivé</span></td></tr>
                 </tbody>
               </table>
             </div>
@@ -245,10 +239,6 @@ export default function Home() {
               <div className="space-y-4">
                 <div className="p-4 border rounded flex justify-between items-center">
                   <div><h3 className="font-semibold text-sm">Double Authentification (MFA)</h3><p className="text-xs text-gray-500">Obligatoire pour tous les comptes administrateurs</p></div>
-                  <button className="w-12 h-6 bg-blue-600 rounded-full relative"><span className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></span></button>
-                </div>
-                <div className="p-4 border rounded flex justify-between items-center">
-                  <div><h3 className="font-semibold text-sm">Chiffrement AES-256</h3><p className="text-xs text-gray-500">Données au repos chiffrées</p></div>
                   <button className="w-12 h-6 bg-blue-600 rounded-full relative"><span className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></span></button>
                 </div>
               </div>
