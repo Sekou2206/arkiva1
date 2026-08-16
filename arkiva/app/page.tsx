@@ -14,14 +14,12 @@ export default function Home() {
   const [selectedDoc, setSelectedDoc] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Fonction pour ajouter une ligne au journal d'audit
   const addLog = (action, docId) => {
     const now = new Date();
     const time = now.toLocaleTimeString('fr-FR');
     setLogs(prev => [{ user: "admin@arkiva", action, doc: docId, time }, ...prev]);
   };
 
-  // Simuler la numérisation et l'OCR
   const handleSimulateScan = () => {
     setIsLoading(true);
     addLog("NUMERISATION_DEBUT", "Nouveau Lot");
@@ -42,17 +40,15 @@ export default function Home() {
       setIsLoading(false);
       addLog("OCR_IA_TERMINE", newDoc.id);
       setActiveTab("Tableau de bord");
-    }, 2500); // Simule un traitement IA de 2.5 secondes
+    }, 2500);
   };
 
-  // Valider un document
   const validateDoc = (id) => {
     setDocuments(prev => prev.map(d => d.id === id ? { ...d, status: "Archivé", badge: "bg-green-100 text-green-800" } : d));
     addLog("VALIDATION_HUMAINE", id);
     setSelectedDoc(null);
   };
 
-  // Filtrer les documents pour la recherche
   const filteredDocs = documents.filter(doc => 
     doc.client.toLowerCase().includes(searchQuery.toLowerCase()) || 
     doc.ref.includes(searchQuery) || 
