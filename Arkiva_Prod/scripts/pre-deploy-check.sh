@@ -1,0 +1,12 @@
+#!/bin/bash
+echo "=== Vérification pré-déploiement Arkiva ==="
+echo "[1] Vérification des ports d'écoute (Seuls 80, 443, 22 doivent être publics)..."
+ss -tulpn | grep -E ':(3000|8000|5432)' | grep "0.0.0.0" && echo "ATTENTION: Port sensible exposé!" || echo "OK: Ports 3000, 8000, 5432 non publics."
+echo "[2] Vérification du Firewall UFW..."
+ufw status | grep -q "Status: active" && echo "OK: UFW actif" || echo "ATTENTION: UFW inactif"
+echo "[3] Vérification de PostgreSQL..."
+systemctl is-active --quiet postgresql && echo "OK: PostgreSQL actif" || echo "ATTENTION: PostgreSQL inactif"
+echo "[4] Vérification des services Arkiva..."
+systemctl is-active --quiet arkiva-backend && echo "OK: Backend actif" || echo "ATTENTION: Backend inactif"
+systemctl is-active --quiet arkiva-frontend && echo "OK: Frontend actif" || echo "ATTENTION: Frontend inactif"
+echo "=== Fin du rapport ==="
